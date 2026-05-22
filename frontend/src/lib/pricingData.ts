@@ -20,6 +20,7 @@ export interface ToolPricing {
   plans: PlanInfo[];
   sourceUrl: string;
   verifiedDate: string;
+  notes?: string;
   apiPricing?: { model: string; input: number; output: number }[]; // per MTok
 }
 
