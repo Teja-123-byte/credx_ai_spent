@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { Star, ChevronDown, BarChart3, BookOpen, Users, Rocket, Check, Zap } from "lucide-react";
+import { axiosInstance } from "../lib/axios";
 
 const styles = `
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
@@ -258,6 +259,12 @@ export default function AISpendAudit() {
   };
 
   useEffect(() => {
+    ;(async ()=> {
+      const result = await axiosInstance.get('/test');
+      console.log(result.data)
+    })();
+
+
     startCycle();
     return () => { if (intervalRef.current) clearInterval(intervalRef.current); };
   }, []);

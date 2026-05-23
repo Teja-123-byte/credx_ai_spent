@@ -50,3 +50,22 @@ None major. Minor styling tweaks needed for mobile responsiveness in hero sectio
 Build the full Audit Input Form with dynamic tool addition, plan selection, and localStorage persistence
 Integrate pricingData.ts into the form
 Start building the audit engine logic
+
+## Day 3 — 2026-05-23
+**Hours worked**: 1
+
+**What I did**:
+
+Set up of axios instance in client and made a test api endpoint in express to check the problems.
+
+**What I learned**:
+
+How to properly handle the working environment i.e. between developlment and production made the baseURL of client to be dynamic based on the .env file.
+
+**Blockers / what I'm stuck on**:
+
+Nothing for now.
+
+**Plan for tomorrow**:
+
+Build the full Audit Input Form with dynamic tool addition.
