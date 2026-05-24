@@ -1,0 +1,99 @@
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', sans-serif; background: #ffffff; }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeInOverlay {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes fadeInDialog {
+    from { opacity: 0; transform: translate(-50%, -45%); }
+    to { opacity: 1; transform: translate(-50%, -50%); }
+  }
+  @keyframes float1 {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    33% { transform: translateY(-18px) rotate(5deg); }
+    66% { transform: translateY(-8px) rotate(-3deg); }
+  }
+  @keyframes float2 {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-22px) rotate(-8deg); }
+  }
+  @keyframes float3 {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    40% { transform: translateY(-14px) rotate(12deg); }
+    80% { transform: translateY(-6px) rotate(-5deg); }
+  }
+  @keyframes orbPulse {
+    0%, 100% { filter: brightness(1) saturate(1.2); transform: scale(1); }
+    50% { filter: brightness(1.15) saturate(1.5); transform: scale(1.03); }
+  }
+  @keyframes starTwinkle {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.5); }
+  }
+
+  .animate-fade-in-up { animation: fadeInUp 0.6s ease-out forwards; }
+  .animate-fade-in-overlay { animation: fadeInOverlay 0.4s ease-out forwards; }
+  .animate-slide-up-overlay { animation: fadeInDialog 0.5s ease-out forwards; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+  .float-1 { animation: float1 6s ease-in-out infinite; }
+  .float-2 { animation: float2 8s ease-in-out infinite 1s; }
+  .float-3 { animation: float3 7s ease-in-out infinite 2s; }
+  .orb-pulse { animation: orbPulse 4s ease-in-out infinite; }
+  .gradient-heading {
+    background: linear-gradient(135deg, #000 0%, #555 50%, #888 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .star-particle {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: white;
+    animation: starTwinkle var(--dur, 3s) ease-in-out infinite var(--delay, 0s);
+  }
+  .tab-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .tab-btn.active {
+    background: white;
+    color: black;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.12);
+  }
+  .tab-btn.inactive {
+    background: transparent;
+    color: #6b7280;
+  }
+  .tab-btn.inactive:hover { color: black; }
+
+  .hero-bg {
+    background: radial-gradient(ellipse 80% 60% at 70% 40%, rgba(124,58,237,0.08) 0%, transparent 60%),
+                radial-gradient(ellipse 40% 40% at 30% 80%, rgba(5,150,105,0.05) 0%, transparent 50%),
+                #0a0a0f;
+  }
+  .video-container {
+    position: relative;
+    border-radius: 24px;
+    overflow: hidden;
+    height: 400px;
+    background: #111;
+  }
+  @media (min-width: 768px) {
+    .video-container { height: 500px; }
+  }
