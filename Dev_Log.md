@@ -69,3 +69,22 @@ Nothing for now.
 **Plan for tomorrow**:
 
 Build the full Audit Input Form with dynamic tool addition.
+
+## Day 4 — 2026-05-24
+**Hours worked**: 1
+
+**What I did**:
+
+Seperated design components from main page.tsx file, fixed routing to Audit.
+
+**What I learned**:
+
+The importance of routing structure.
+
+**Blockers / what I'm stuck on**:
+
+The main audit form.
+
+**Plan for tomorrow**:
+
+Design and implement the Audit form along with api endpoints.

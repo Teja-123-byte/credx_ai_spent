@@ -4,6 +4,8 @@ import "./globals.css";
 import { useState, useEffect, useRef } from "react";
 import { Star, ChevronDown, BarChart3, BookOpen, Users, Rocket, Check, Zap } from "lucide-react";
 import { axiosInstance } from "../lib/axios";
+import Link from "next/link"
+
 import AnalyseOverlay from "../components/overlays/AnalyseOverlay";
 import DeployOverlay from "../components/overlays/DeployOverlay";
 import StarParticles from "../components/overlays/StarParticles";
@@ -82,11 +84,10 @@ export default function AISpendAudit() {
               ))}
             </div>
 
-            <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-              <button className="nav-link">Login</button>
-              <button style={{ background: "white", color: "black", padding: "9px 20px", borderRadius: 50, fontSize: 13, fontWeight: 600, border: "none", cursor: "pointer" }}>
+            <div style={{ display: "flex", alignItems: "center"}}>
+              <Link href="/audit" style={{ background: "white", color: "black", padding: "9px 20px", borderRadius: 50, fontSize: 13, fontWeight: 600, border: "none", cursor: "pointer" }}>
                 Start Free Audit
-              </button>
+              </Link>
             </div>
           </nav>
 
