@@ -88,3 +88,25 @@ The main audit form.
 **Plan for tomorrow**:
 
 Design and implement the Audit form along with api endpoints.
+## Day 5 - 2026-05-25
+
+**Hours worked:** 4 hrs
+
+**What I did:**
+
+* Added backend validation middleware
+* Updated audit, pricing, and engine backend files
+* Organized backend routes and middleware structure
+* Tested frontend-backend integration
+
+**What I learned:**
+
+* Learned better backend structuring and validation handling in Node.js
+
+**Blockers:**
+
+* Faced frontend build/CSS issues while running Next.js app
+
+**Plan for tomorrow:**
+
+* Fix frontend issues and complete API integration

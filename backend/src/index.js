@@ -1,25 +1,42 @@
 import "dotenv/config";
-import experss from "express";
+import express from "express";
 import cors from "cors";
 
-const app = experss();
-const PORT = process.env.PORT;
+import pricingRouter from "./routes/pricing.js";
+import auditRouter from "./routes/audit.js";
 
-app.use(cors({
-    origin: process.env.PUBLIC_URL
-}));
+const app = express();
+const PORT = process.env.PORT || 4000;
 
+// ── Middleware ────────────────────────────────────────────────────────────────
+app.use(cors({ origin: process.env.PUBLIC_URL }));
+app.use(express.json());
 
-app.use(experss.json());
-
-app.get("/test", (req,res)=> {
-    return res.status(200).json({
-        message: "API is working"
-    })
+// ── Routes ────────────────────────────────────────────────────────────────────
+app.get("/health", (req, res) => {
+  res.json({ status: "ok", timestamp: new Date().toISOString() });
 });
 
+app.use("/pricing", pricingRouter);
+app.use("/audit", auditRouter);
 
-app.listen(PORT, ()=> {
-    console.log(`Server listening on http://localhost:${PORT}`)
-})
+// ── 404 handler ───────────────────────────────────────────────────────────────
+app.use((req, res) => {
+  res.status(404).json({ error: `Route ${req.method} ${req.path} not found` });
+});
 
+// ── Global error handler ──────────────────────────────────────────────────────
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ error: "Unexpected server error" });
+});
+
+app.listen(PORT, () => {
+  console.log(`✅ CredX API running on http://localhost:${PORT}`);
+  console.log(`   GET  /health`);
+  console.log(`   GET  /pricing/tools`);
+  console.log(`   GET  /pricing/:tool`);
+  console.log(`   POST /audit`);
+  console.log(`   GET  /audit/:id`);
+  console.log(`   GET  /audit?company=<name>`);
+});
