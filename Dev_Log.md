@@ -110,3 +110,40 @@ Design and implement the Audit form along with api endpoints.
 **Plan for tomorrow:**
 
 * Fix frontend issues and complete API integration
+
+## Day 6 - 2026-05-26
+
+**Hours worked:** 3.5 hrs
+
+**What I did:**
+
+- Fixed multiple frontend runtime/build errors:
+	- Added missing UI wrapper components: `src/components/ui/card.tsx`, `src/components/ui/button.tsx`, `src/components/ui/badge.tsx` and a barrel `src/components/ui/index.ts`.
+	- Updated `src/components/AuditResults.tsx` to import from `./ui` and restored standard Tailwind gradient utility classes (`bg-gradient-to-*`).
+	- Converted `src/app/audit/page.tsx` to a Client Component (`"use client"`) so event handlers can be passed to child components.
+	- Added minimal Next App Router helper pages: `src/app/error.tsx` and `src/app/not-found.tsx` to remove dev overlay errors.
+	- Installed frontend dependencies (`npm install`) and verified `npm run build` completes successfully. Dev server ran and chose port 3002 (if 3000/3001 were occupied).
+
+- Fixed backend issues and started local API:
+	- Implemented missing `src/routes/audit.js` (simple in-memory store for POST /audit and GET /audit/:id, GET /audit?company=).
+	- Installed backend dependencies and started the dev server with `nodemon` (running at http://localhost:4000).
+
+**What I learned:**
+
+- Next.js App Router enforces server/client boundaries — server components cannot receive event handlers. Converting specific pages to client components is necessary for interactive UI.
+- Dev mode requires at least basic `error` and `not-found` components for the dev overlay and static page generation to behave predictably.
+- Using a `ui` barrel (index) simplifies imports and avoids path resolution problems in TypeScript/Next projects.
+
+**Blockers / what I fixed:**
+
+- Missing UI component files caused compile-time/type errors — added the files.
+- Backend expected `audit.js` route which wasn't present — added a minimal implementation.
+- Multiple processes occupied default dev ports (3000/3001) — Next picked an available port (3002). If you expect `localhost:3000`, either stop the other process or open the chosen port.
+
+**Plan for tomorrow / next steps:**
+
+- Wire the frontend audit form to POST to `/audit` and show saved audit IDs.
+- Improve and type the UI components, add design tokens and shared props.
+- Add persistence for audits (replace in-memory store with a simple DB or file, or connect to Supabase if configured).
+- Add basic tests for backend routes and a smoke-test script for frontend build/start.
+
