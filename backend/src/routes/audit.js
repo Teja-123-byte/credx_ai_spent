@@ -7,11 +7,24 @@ const audits = new Map();
 
 // POST /audit - create a new audit job/result
 router.post("/", (req, res) => {
-  const payload = req.body || {};
-  const id = String(Date.now()) + Math.floor(Math.random() * 1000);
-  const record = { id, createdAt: new Date().toISOString(), ...payload };
-  audits.set(id, record);
-  return res.status(201).json({ id, record });
+  try {
+    const payload = req.body || {};
+    console.log('POST /audit content-type:', req.headers['content-type']);
+    try {
+      console.log('POST /audit payload (stringified):', JSON.stringify(payload));
+    } catch (sErr) {
+      console.log('POST /audit payload (stringify failed):', sErr && sErr.message);
+    }
+
+    const id = String(Date.now()) + Math.floor(Math.random() * 1000);
+    const record = { id, createdAt: new Date().toISOString(), ...payload };
+    audits.set(id, record);
+    return res.status(201).json({ id, record });
+  } catch (err) {
+    console.error('POST /audit error', err && err.stack ? err.stack : err);
+    console.error('Payload that caused error:', req.body);
+    return res.status(500).json({ error: 'Unexpected server error', detail: err && err.message });
+  }
 });
 
 // GET /audit/:id - fetch a specific audit
