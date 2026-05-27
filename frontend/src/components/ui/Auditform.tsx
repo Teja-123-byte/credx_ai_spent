@@ -70,54 +70,36 @@ export default function AuditForm({ onSubmit }: Props) {
   };
 
   return (
-    <div style={{ maxWidth: 900, margin: '0 auto', padding: '44px 42px 52px', color: '#0f172a' }}>
+    <div className="max-w-[900px] mx-auto px-[42px] pt-11 pb-13 text-slate-200 bg-[#0b1322] border border-slate-400/16 rounded-[32px]">
       {/* Header */}
-      <div style={{ marginBottom: 32 }}>
-        <div style={{
-          display: 'inline-flex', alignItems: 'center', gap: 8,
-          background: '#f8fafc', border: '1px solid #e2e8f0',
-          borderRadius: 999, padding: '8px 16px', fontSize: 12, fontWeight: 700,
-          color: '#475569', textTransform: 'uppercase', letterSpacing: 1.2, marginBottom: 16
-        }}>
+      <div className="mb-8">
+        <div className="inline-flex items-center gap-2 bg-sky-400/12 border border-sky-400/28 rounded-full px-4 py-2 text-xs font-bold text-blue-200 uppercase tracking-[1.2px] mb-4">
           Step 1 of 2
         </div>
-        <h2 style={{ fontSize: 'clamp(34px, 4vw, 44px)', fontWeight: 800, margin: '0 0 14px', lineHeight: 1.05, color: '#0f172a' }}>
+        <h2 className="text-[clamp(34px,4vw,44px)] font-extrabold mb-3.5 leading-[1.05] text-slate-50">
           Add every AI tool your team pays for.
         </h2>
-        <p style={{ fontSize: 15, color: '#475569', lineHeight: 1.8, maxWidth: 660 }}>
-          We’ll audit your AI stack and show you exactly where you can cut waste today.
+        <p className="text-[15px] text-slate-300 leading-[1.9] max-w-[660px]">
+          We'll audit your AI stack and show you exactly where you can cut waste today.
         </p>
       </div>
 
       {/* Context Row */}
-      <div style={{
-        display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20, marginBottom: 32,
-        background: '#ffffff', border: '1px solid #e2e8f0',
-        borderRadius: 24, padding: 26
-      }}>
-        <div>
-          <label style={labelStyle}><Users size={12} /> Team Size</label>
-          <input
-            type="number" min={1} value={teamSize}
-            onChange={e => setTeamSize(Number(e.target.value))}
-            style={{ ...inputStyle, background: '#f8fafc', color: '#0f172a', border: '1px solid #d1d5db' }}
-            placeholder="e.g. 8"
-          />
-        </div>
-        <div>
-          <label style={labelStyle}><Briefcase size={12} /> Primary Use Case</label>
-          <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginTop: 2 }}>
+      <div className="grid grid-cols-2 gap-5 mb-8 bg-white/4 border border-slate-400/18 rounded-3xl p-[26px]">
+        <div className="flex flex-col gap-3 w-full">
+          <label className="flex items-center gap-1.5 text-[11px] font-bold text-slate-300 uppercase tracking-[0.6px] mb-2">
+            <Briefcase size={12} /> Primary Use Case
+          </label>
+          <div className="flex gap-2.5 flex-row w-full mt-0.5">
             {USE_CASES.map(u => (
               <button
                 key={u.value}
                 onClick={() => setUseCase(u.value)}
-                style={{
-                  padding: '10px 14px', borderRadius: 12, fontSize: 13, fontWeight: 700,
-                  border: useCase === u.value ? '1px solid #0f172a' : '1px solid #cbd5e1',
-                  background: useCase === u.value ? '#0f172a' : '#ffffff',
-                  color: useCase === u.value ? '#ffffff' : '#0f172a',
-                  cursor: 'pointer', transition: 'all 0.15s'
-                }}
+                className={`px-3.5 py-2.5 rounded-[14px] text-[13px] font-bold cursor-pointer transition-all duration-200 ${
+                  useCase === u.value
+                    ? "border border-sky-400/90 bg-slate-800 text-sky-400"
+                    : "border border-slate-400/24 bg-white/4 text-slate-200"
+                }`}
               >
                 {u.emoji} {u.label}
               </button>
@@ -127,17 +109,14 @@ export default function AuditForm({ onSubmit }: Props) {
       </div>
 
       {/* Column Headers */}
-      <div style={{
-        display: 'grid', gridTemplateColumns: '180px 1fr 130px 90px 40px',
-        gap: 12, padding: '0 18px', marginBottom: 8
-      }}>
+      <div className="grid grid-cols-[180px_1fr_130px_90px_40px] gap-3 px-[18px] mb-3">
         {['Tool', 'Plan', 'Monthly Spend', 'Seats', ''].map((h, i) => (
-          <div key={i} style={{ fontSize: 11, fontWeight: 700, color: '#475569', textTransform: 'uppercase', letterSpacing: 0.6 }}>{h}</div>
+          <div key={i} className="text-[11px] font-bold text-slate-400 uppercase tracking-[0.7px]">{h}</div>
         ))}
       </div>
 
       {/* Tool Rows */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 14, marginBottom: 20 }}>
+      <div className="flex flex-col gap-3.5 mb-5">
         {tools.map((t, i) => (
           <ToolInput
             key={i}
@@ -154,13 +133,7 @@ export default function AuditForm({ onSubmit }: Props) {
       {tools.length < ALL_TOOLS.length && (
         <button
           onClick={addTool}
-          style={{
-            width: '100%', padding: '14px 18px', border: '1px dashed #cbd5e1',
-            borderRadius: 16, background: '#ffffff', color: '#0f172a',
-            fontSize: 14, fontWeight: 700, cursor: 'pointer', marginBottom: 24,
-            display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10,
-            transition: 'all 0.2s'
-          }}
+          className="w-full px-[18px] py-3.5 border border-dashed border-slate-400/35 rounded-2xl bg-slate-900 text-slate-300 text-sm font-bold cursor-pointer mb-6 flex items-center justify-center gap-2.5 transition-all duration-200"
         >
           <Plus size={16} /> Add another tool
         </button>
@@ -170,38 +143,19 @@ export default function AuditForm({ onSubmit }: Props) {
       <button
         onClick={handleSubmit}
         disabled={!canSubmit}
-        style={{
-          width: '100%', padding: '17px',
-          background: canSubmit
-            ? '#0f172a'
-            : '#e2e8f0',
-          color: canSubmit ? '#ffffff' : '#94a3b8',
-          border: 'none', borderRadius: 16, fontSize: 16, fontWeight: 800,
-          cursor: canSubmit ? 'pointer' : 'not-allowed',
-          letterSpacing: -0.3, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10,
-          boxShadow: canSubmit ? '0 24px 68px rgba(15,23,42,0.16)' : 'none',
-          transition: 'all 0.2s'
-        }}
+        className={`w-full py-[17px] border-none rounded-[18px] text-base font-extrabold tracking-[-0.3px] flex items-center justify-center gap-2.5 shadow-none transition-all duration-200 ${
+          canSubmit
+            ? "bg-sky-400 text-slate-900 cursor-pointer"
+            : "bg-slate-400/16 text-slate-400 cursor-not-allowed"
+        }`}
       >
         Run My Audit <ArrowRight size={18} />
       </button>
       {!canSubmit && (
-        <p style={{ textAlign: 'center', fontSize: 12, color: '#64748b', marginTop: 10 }}>
+        <p className="text-center text-xs text-slate-400 mt-2.5">
           Add at least one tool with a plan selected
         </p>
       )}
     </div>
   );
 }
-
-const labelStyle: React.CSSProperties = {
-  display: 'flex', alignItems: 'center', gap: 6,
-  fontSize: 11, fontWeight: 700, color: '#475569',
-  textTransform: 'uppercase', letterSpacing: 0.6, marginBottom: 8
-};
-
-const inputStyle: React.CSSProperties = {
-  width: '100%', padding: '12px 14px',
-  background: '#ffffff', border: '1px solid #d1d5db',
-  borderRadius: 12, fontSize: 15, color: '#0f172a', outline: 'none'
-};

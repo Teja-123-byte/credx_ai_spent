@@ -43,15 +43,9 @@ export default function ToolInput({ index, value, usedTools, onChange, onRemove 
   };
 
   return (
-    <div style={{
-      display: 'grid', gridTemplateColumns: '180px 1fr 130px 90px 40px',
-      gap: 12, alignItems: 'center',
-      background: '#ffffff', border: '1px solid #e2e8f0',
-      borderRadius: 18, padding: '16px 20px',
-      transition: 'border-color 0.15s'
-    }}>
+    <div className="grid grid-cols-[180px_1fr_130px_90px_40px] gap-3 items-center bg-white/4 border border-slate-400/16 rounded-[20px] px-[22px] py-[18px] transition-[border-color,transform] duration-150">
       {/* Tool */}
-      <select value={value.tool} onChange={handleToolChange} style={selectStyle}>
+      <select value={value.tool} onChange={handleToolChange} className="w-full px-3.5 py-3 bg-[#07111f] border border-slate-400/22 rounded-[14px] text-[13px] text-slate-200 outline-none cursor-pointer">
         {ALL_TOOLS.map(t => (
           <option key={t} value={t} disabled={usedTools.includes(t) && t !== value.tool}>
             {TOOL_DISPLAY[t]}
@@ -60,7 +54,7 @@ export default function ToolInput({ index, value, usedTools, onChange, onRemove 
       </select>
 
       {/* Plan */}
-      <select value={value.plan} onChange={handlePlanChange} style={selectStyle}>
+      <select value={value.plan} onChange={handlePlanChange} className="w-full px-3.5 py-3 bg-[#07111f] border border-slate-400/22 rounded-[14px] text-[13px] text-slate-200 outline-none cursor-pointer">
         {plans.map(p => (
           <option key={p.name} value={p.name}>
             {p.name}{p.pricePerSeat != null && p.pricePerSeat > 0 ? ` — $${p.pricePerSeat}/seat` : p.pricePerSeat === 0 ? ' — Free' : ' — Usage-based'}
@@ -69,13 +63,13 @@ export default function ToolInput({ index, value, usedTools, onChange, onRemove 
       </select>
 
       {/* Monthly Spend */}
-      <div style={{ position: 'relative' }}>
-        <span style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', color: 'rgba(255,255,255,0.3)', fontSize: 14 }}>$</span>
+      <div className="relative">
+        <span className="absolute left-3 top-1/2 -translate-y-1/2 text-white/30 text-sm">$</span>
         <input
           type="number" min={0}
           value={value.monthlySpend}
           onChange={e => onChange({ monthlySpend: Number(e.target.value) })}
-          style={{ ...inputStyle, paddingLeft: 24 }}
+          className="w-full pl-6 pr-3.5 py-3 bg-[#07111f] border border-slate-400/22 rounded-[14px] text-sm text-slate-200 outline-none"
         />
       </div>
 
@@ -89,33 +83,16 @@ export default function ToolInput({ index, value, usedTools, onChange, onRemove 
           const spend = planInfo?.pricePerSeat ? planInfo.pricePerSeat * seats : value.monthlySpend;
           onChange({ seats, monthlySpend: spend });
         }}
-        style={inputStyle}
+        className="w-full px-3.5 py-3 bg-[#07111f] border border-slate-400/22 rounded-[14px] text-sm text-slate-200 outline-none"
       />
 
       {/* Remove */}
       <button
         onClick={onRemove}
-        style={{
-          width: 36, height: 36, borderRadius: 8, border: 'none',
-          background: 'rgba(239,68,68,0.1)', color: '#f87171',
-          cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
-          transition: 'background 0.15s'
-        }}
+        className="w-9 h-9 rounded-lg border-none bg-red-500/10 text-red-400 cursor-pointer flex items-center justify-center transition-colors duration-150"
       >
         <X size={15} />
       </button>
     </div>
   );
 }
-
-const selectStyle: React.CSSProperties = {
-  width: '100%', padding: '12px 14px',
-  background: '#f8fafc', border: '1px solid #d1d5db',
-  borderRadius: 12, fontSize: 13, color: '#0f172a', outline: 'none', cursor: 'pointer',
-};
-
-const inputStyle: React.CSSProperties = {
-  width: '100%', padding: '12px 14px',
-  background: '#f8fafc', border: '1px solid #d1d5db',
-  borderRadius: 12, fontSize: 14, color: '#0f172a', outline: 'none',
-};

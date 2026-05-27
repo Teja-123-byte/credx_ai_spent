@@ -1,9 +1,7 @@
 'use client';
 
-import "./globals.css";
 import { useState, useEffect, useRef } from "react";
 import { Star, ChevronDown, BarChart3, BookOpen, Users, Rocket, Check, Zap } from "lucide-react";
-import { axiosInstance } from "../lib/axios";
 import Link from "next/link"
 
 import AnalyseOverlay from "../components/overlays/AnalyseOverlay";
@@ -35,12 +33,6 @@ export default function AISpendAudit() {
   };
 
   useEffect(() => {
-    ;(async ()=> {
-      const result = await axiosInstance.get('/test');
-      console.log(result.data)
-    })();
-
-
     startCycle();
     return () => { if (intervalRef.current) clearInterval(intervalRef.current); };
   }, []);
@@ -62,83 +54,97 @@ export default function AISpendAudit() {
 
   return (
     <>
-      <div className="hero-bg" style={{ minHeight: "100vh", color: "white", position: "relative", overflow: "hidden" }}>
-        <div style={{ position: "fixed", inset: 0, pointerEvents: "none", zIndex: 0 }}>
+      <div className="hero-bg min-h-screen text-white relative overflow-hidden">
+        <div className="fixed inset-0 pointer-events-none z-0">
           <StarParticles />
         </div>
 
-        <div style={{ maxWidth: 1280, margin: "0 auto", position: "relative", zIndex: 1 }}>
+        <div className="max-w-[1280px] mx-auto relative z-[1]">
           {/* NAVIGATION */}
-          <nav className="animate-fade-in-up" style={{ animationDelay: "0.1s", padding: "20px 24px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          <nav className="animate-fade-in-up [animation-delay:0.1s] px-6 py-5 flex items-center justify-between">
+            <div className="flex items-center gap-2">
               <Star size={18} fill="white" color="white" />
-              <span style={{ fontSize: 17, fontWeight: 700, letterSpacing: "-0.02em" }}>AISpendAudit</span>
+              <span className="text-[17px] font-bold tracking-tight">AISpendAudit</span>
             </div>
 
-            <div style={{ display: "flex", alignItems: "center", gap: 32 }}>
+            <div className="flex items-center gap-8">
               {[["Solutions", true], ["For Teams", true], ["About Us", false], ["Learn Hub", false]].map(([label, hasArrow]) => (
-                <button key={label as string} className="nav-link" style={{ fontSize: "14px", color: "rgba(255,255,255,0.7)", background: "none", border: "none" }}>
+                <button key={label as string} className="text-sm text-white/70 bg-transparent border-none">
                   {label}
                   {hasArrow && <ChevronDown size={14} />}
                 </button>
               ))}
             </div>
 
-            <div style={{ display: "flex", alignItems: "center"}}>
-              <Link href="/audit" style={{ background: "white", color: "black", padding: "9px 20px", borderRadius: 50, fontSize: 13, fontWeight: 600, border: "none", cursor: "pointer" }}>
+            <div className="flex items-center">
+              <Link href="/audit" className="bg-white text-black px-5 py-2.5 rounded-full text-[13px] font-semibold border-none cursor-pointer">
                 Start Free Audit
               </Link>
             </div>
           </nav>
 
           {/* HERO SECTION */}
-          <section style={{ padding: "40px 24px 60px", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" }}>
-            <div className="animate-fade-in-up" style={{ animationDelay: "0.2s", display: "inline-flex", alignItems: "center", gap: 8, marginBottom: 32, padding: "6px 14px", borderRadius: 50, border: "1px solid rgba(255,255,255,0.15)", background: "rgba(255,255,255,0.05)", backdropFilter: "blur(8px)" }}>
-              <div style={{ width: 24, height: 24, border: "1px solid rgba(255,255,255,0.3)", borderRadius: 6, display: "flex", alignItems: "center", justifyContent: "center" }}>
+          <section className="px-6 pt-10 pb-[60px] flex flex-col items-center text-center">
+            <div className="animate-fade-in-up [animation-delay:0.2s] inline-flex items-center gap-2 mb-8 px-3.5 py-1.5 rounded-full border border-white/15 bg-white/5 backdrop-blur-md">
+              <div className="w-6 h-6 border border-white/30 rounded-md flex items-center justify-center">
                 <Star size={12} fill="white" color="white" />
               </div>
-              <span style={{ fontSize: 13, fontWeight: 500, color: "rgba(255,255,255,0.85)" }}>4.9 rating from 18.3K+ users</span>
+              <span className="text-[13px] font-medium text-white/85">4.9 rating from 18.3K+ users</span>
             </div>
 
-            <div style={{ position: "relative", width: "100%", maxWidth: 900, marginBottom: 28 }}>
-              <div style={{ position: "absolute", left: -20, top: "50%", transform: "translateY(-50%)", display: "flex", flexDirection: "column", gap: 24, alignItems: "center", pointerEvents: "none" }}>
-                <div className="float-2" style={{ transform: "translateX(-10px)" }}><div className="coin-gold" style={{ width: "70px", height: "18px", background: "linear-gradient(180deg, #f5d77a 0%, #c9973a 40%, #f5d77a 60%, #a07020 100%)", borderRadius: "50%", boxShadow: "0 4px 12px rgba(197,151,58,0.5)" }} /></div>
-                <div className="float-3"><div className="shape-cyan" style={{ width: "52px", height: "52px", background: "linear-gradient(135deg, #67e8f9, #0891b2)", clipPath: "polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)" }} /></div>
+            <div className="relative w-full max-w-[900px] mb-7">
+              <div className="absolute left-[-20px] top-1/2 -translate-y-1/2 flex flex-col gap-6 items-center pointer-events-none">
+                <div className="float-2 -translate-x-2.5">
+                  <div className="w-[70px] h-[18px] rounded-[50%] shadow-[0_4px_12px_rgba(197,151,58,0.5)]" style={{ background: "linear-gradient(180deg, #f5d77a 0%, #c9973a 40%, #f5d77a 60%, #a07020 100%)" }} />
+                </div>
+                <div className="float-3">
+                  <div className="w-[52px] h-[52px] bg-gradient-to-br from-cyan-300 to-cyan-600" style={{ clipPath: "polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)" }} />
+                </div>
               </div>
 
-              <div style={{ position: "absolute", right: -30, top: "50%", transform: "translateY(-50%)", display: "flex", flexDirection: "column", gap: 28, alignItems: "center", pointerEvents: "none" }}>
-                <div className="float-1"><div className="coin-green" style={{ width: "90px", height: "20px", background: "linear-gradient(180deg, #6ee7b7 0%, #059669 40%, #6ee7b7 60%, #047857 100%)", borderRadius: "50%" }} /></div>
-                <div className="orb-pulse"><div className="orb-main" style={{ width: "220px", height: "220px", borderRadius: "50%", background: "radial-gradient(circle at 35% 30%, #c084fc, #7c3aed 40%, #4c1d95 80%, #1e0a4a)" }} /></div>
-                <div className="float-2"><div className="shape-pink" style={{ width: "58px", height: "48px", background: "linear-gradient(135deg, #f9a8d4, #db2777)", borderRadius: "40% 60% 70% 30% / 40% 50% 60% 50%" }} /></div>
+              <div className="absolute right-[-30px] top-1/2 -translate-y-1/2 flex flex-col gap-7 items-center pointer-events-none">
+                <div className="float-1">
+                  <div className="w-[90px] h-5 rounded-[50%]" style={{ background: "linear-gradient(180deg, #6ee7b7 0%, #059669 40%, #6ee7b7 60%, #047857 100%)" }} />
+                </div>
+                <div className="orb-pulse">
+                  <div className="w-[220px] h-[220px] rounded-full" style={{ background: "radial-gradient(circle at 35% 30%, #c084fc, #7c3aed 40%, #4c1d95 80%, #1e0a4a)" }} />
+                </div>
+                <div className="float-2">
+                  <div className="w-[58px] h-12 bg-gradient-to-br from-pink-300 to-pink-600 rounded-[40%_60%_70%_30%/40%_50%_60%_50%]" />
+                </div>
               </div>
 
-              <div className="animate-fade-in-up" style={{ animationDelay: "0.3s" }}>
-                <h1 style={{ fontSize: "clamp(48px,7vw,80px)", fontWeight: 400, lineHeight: 1.08, letterSpacing: "-0.03em", marginBottom: 0 }}>
-                  <span style={{ color: "white" }}>Work Smarter. Move Faster.</span>
+              <div className="animate-fade-in-up [animation-delay:0.3s]">
+                <h1 className="text-[clamp(48px,7vw,80px)] font-normal leading-[1.08] tracking-[-0.03em] mb-0">
+                  <span className="text-white">Work Smarter. Move Faster.</span>
                   <br />
                   <span className="gradient-heading">AI Powers You Up.</span>
                 </h1>
               </div>
             </div>
 
-            <p className="animate-fade-in-up" style={{ animationDelay: "0.4s", fontSize: 18, color: "rgba(255,255,255,0.55)", maxWidth: 540, lineHeight: 1.6, marginBottom: 32 }}>
+            <p className="animate-fade-in-up [animation-delay:0.4s] text-lg text-white/55 max-w-[540px] leading-relaxed mb-8">
               Intelligent automation syncs with the tools you love to streamline tasks, boost output, and save time.
             </p>
 
-            <Link href="/audit" className="animate-fade-in-up" style={{ animationDelay: "0.5s", background: "#22c55e", color: "white", padding: "14px 36px", borderRadius: 50, fontSize: 15, fontWeight: 600, border: "none", cursor: "pointer", marginBottom: 40, boxShadow: "0 4px 24px rgba(34,197,94,0.4)", textDecoration: "none", display: "inline-block" }}>
+            <Link href="/audit" className="animate-fade-in-up [animation-delay:0.5s] bg-green-500 text-white px-9 py-3.5 rounded-full text-[15px] font-semibold border-none cursor-pointer mb-10 shadow-[0_4px_24px_rgba(34,197,94,0.4)] no-underline inline-block">
               Use for Free →
             </Link>
 
             {/* Tab Bar */}
-            <div className="animate-fade-in-up" style={{ animationDelay: "0.6s", marginBottom: 32, background: "rgba(255,255,255,0.07)", borderRadius: 10, padding: 4, border: "1px solid rgba(255,255,255,0.08)", display: "inline-flex" }}>
-              {tabs.map((tab, i) => {
+            <div className="animate-fade-in-up [animation-delay:0.6s] mb-8 bg-white/7 rounded-[10px] p-1 border border-white/8 inline-flex">
+              {tabs.map((tab) => {
                 const Icon = tab.icon;
                 const isActive = activeTab === tab.id;
                 return (
                   <button
                     key={tab.id}
                     onClick={() => handleTabClick(tab.id)}
-                    className={`tab-btn ${isActive ? "active" : "inactive"}`}
+                    className={`flex items-center gap-1.5 px-4 py-2 rounded-md text-[13px] font-medium border-none cursor-pointer transition-all duration-200 whitespace-nowrap ${
+                      isActive
+                        ? "bg-white text-black shadow-[0_1px_4px_rgba(0,0,0,0.12)]"
+                        : "bg-transparent text-gray-500 hover:text-black"
+                    }`}
                   >
                     <Icon size={14} />
                     {tab.label}
@@ -148,24 +154,24 @@ export default function AISpendAudit() {
             </div>
 
             {/* Video Container */}
-            <div className="animate-fade-in-up video-container" style={{ animationDelay: "0.7s", width: "100%", maxWidth: 900 }}>
+            <div className="animate-fade-in-up [animation-delay:0.7s] w-full max-w-[900px] relative rounded-3xl overflow-hidden h-[400px] md:h-[500px] bg-[#111]">
               <video
                 autoPlay
                 loop
                 muted
                 playsInline
-                style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                className="w-full h-full object-cover"
                 src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260319_165750_358b1e72-c921-48b7-aaac-f200994f32fb.mp4"
               />
               {renderOverlay()}
             </div>
 
             {/* Metrics */}
-            <div className="animate-fade-in-up" style={{ animationDelay: "0.75s", display: "flex", gap: 48, marginTop: 36, justifyContent: "center", flexWrap: "wrap" }}>
+            <div className="animate-fade-in-up [animation-delay:0.75s] flex gap-12 mt-9 justify-center flex-wrap">
               {[["$847/mo", "Avg savings found"], ["8+", "Tools covered"], ["60s", "Time to audit"]].map(([val, label]) => (
-                <div key={label} style={{ textAlign: "center" }}>
-                  <div style={{ fontSize: "28px", fontWeight: 700, color: "white" }}>{val}</div>
-                  <div style={{ fontSize: "12px", color: "rgba(255,255,255,0.5)" }}>{label}</div>
+                <div key={label} className="text-center">
+                  <div className="text-[28px] font-bold text-white">{val}</div>
+                  <div className="text-xs text-white/50">{label}</div>
                 </div>
               ))}
             </div>

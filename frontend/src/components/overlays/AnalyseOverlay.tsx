@@ -1,26 +1,26 @@
 import { Check, Zap } from "lucide-react";
 
 const AnalyseOverlay = () => (
-  <div className="animate-fade-in-overlay" style={{ position: "absolute", inset: 0, background: "rgba(0,0,0,0.55)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-    <div className="animate-slide-up-overlay overlay-card" style={{ background: "rgba(15, 15, 25, 0.92)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "16px", padding: "24px", width: "320px", maxWidth: "90%", backdropFilter: "blur(20px)", boxShadow: "0 20px 60px rgba(0,0,0,0.5)" }}>
-      <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16 }}>
-        <div style={{ width: 32, height: 32, borderRadius: 8, background: "linear-gradient(135deg,#7c3aed,#c084fc)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+  <div className="animate-fade-in-overlay absolute inset-0 bg-black/55 flex items-center justify-center">
+    <div className="animate-slide-up-overlay bg-[rgba(15,15,25,0.92)] border border-white/10 rounded-2xl p-6 w-80 max-w-[90%] backdrop-blur-xl shadow-[0_20px_60px_rgba(0,0,0,0.5)]">
+      <div className="flex items-center gap-2.5 mb-4">
+        <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-600 to-purple-400 flex items-center justify-center">
           <Zap size={16} color="white" />
         </div>
         <div>
-          <div style={{ color: "white", fontWeight: 600, fontSize: 14 }}>Set Up Your AI Workspace</div>
-          <div style={{ color: "rgba(255,255,255,0.5)", fontSize: 11 }}>Step 1 of 4</div>
+          <div className="text-white font-semibold text-sm">Set Up Your AI Workspace</div>
+          <div className="text-white/50 text-[11px]">Step 1 of 4</div>
         </div>
       </div>
-      <div style={{ background: "rgba(255,255,255,0.08)", borderRadius: 6, height: 6, marginBottom: 16, overflow: "hidden" }}>
-        <div className="progress-bar" style={{ background: "linear-gradient(90deg,#7c3aed,#c084fc)", width: "25%" }} />
+      <div className="bg-white/8 rounded-md h-1.5 mb-4 overflow-hidden">
+        <div className="bg-gradient-to-r from-violet-600 to-purple-400 w-1/4 h-full" />
       </div>
       {["Connect data sources", "Configure AI models", "Set analysis parameters", "Run initial scan"].map((step, i) => (
-        <div key={i} style={{ display: "flex", alignItems: "center", gap: 10, padding: "8px 0", borderBottom: i < 3 ? "1px solid rgba(255,255,255,0.05)" : "none" }}>
-          <div style={{ width: 20, height: 20, borderRadius: "50%", background: i === 0 ? "linear-gradient(135deg,#7c3aed,#c084fc)" : "rgba(255,255,255,0.1)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-            {i === 0 ? <Check size={11} color="white" /> : <span style={{ color: "rgba(255,255,255,0.3)", fontSize: 10 }}>{i + 1}</span>}
+        <div key={i} className={`flex items-center gap-2.5 py-2 ${i < 3 ? "border-b border-white/5" : ""}`}>
+          <div className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 ${i === 0 ? "bg-gradient-to-br from-violet-600 to-purple-400" : "bg-white/10"}`}>
+            {i === 0 ? <Check size={11} color="white" /> : <span className="text-white/30 text-[10px]">{i + 1}</span>}
           </div>
-          <span style={{ color: i === 0 ? "white" : "rgba(255,255,255,0.4)", fontSize: 13 }}>{step}</span>
+          <span className={`text-[13px] ${i === 0 ? "text-white" : "text-white/40"}`}>{step}</span>
         </div>
       ))}
     </div>
