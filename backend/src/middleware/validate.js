@@ -1,14 +1,14 @@
-// src/middleware/validate.js
+
 import { TOOL_NAMES } from "../lib/pricingData.js";
 
 const USE_CASES = ["coding", "writing", "data", "research", "mixed"];
 
 export function validateAuditInput(req, res, next) {
-  const { tools, teamSize, primaryUseCase } = req.body;
+  const { tools, teamSize, primaryUseCase, companyName } = req.body;
 
   const errors = [];
 
-  // tools
+
   if (!Array.isArray(tools) || tools.length === 0) {
     errors.push("tools must be a non-empty array");
   } else {
@@ -30,14 +30,19 @@ export function validateAuditInput(req, res, next) {
     });
   }
 
-  // teamSize
+
   if (typeof teamSize !== "number" || teamSize < 1) {
     errors.push("teamSize must be a positive number");
   }
 
-  // primaryUseCase
+
   if (!USE_CASES.includes(primaryUseCase)) {
     errors.push(`primaryUseCase must be one of: ${USE_CASES.join(", ")}`);
+  }
+
+
+  if (companyName !== undefined && companyName !== null && typeof companyName !== "string") {
+    errors.push("companyName must be a string when provided");
   }
 
   if (errors.length > 0) {

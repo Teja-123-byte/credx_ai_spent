@@ -1,11 +1,5 @@
-// src/lib/auditEngine.js
-// Pure functions — no side effects, easy to test.
 import { pricingData } from "./pricingData.js";
 
-/**
- * Calculate the actual monthly cost for a single tool entry.
- * monthlySpend is what the user SAYS they pay — we validate it against catalog.
- */
 export function calcToolCost(entry) {
   const { tool, plan, seats, monthlySpend } = entry;
   const toolData = pricingData[tool];
@@ -23,18 +17,15 @@ export function calcToolCost(entry) {
     displayName: toolData.displayName,
     plan,
     seats,
-    monthlySpend,                        // what user reports paying
-    catalogMonthly,                      // what catalog says it should be
-    delta: catalogMonthly !== null       // over/under vs catalog
+    monthlySpend,
+    catalogMonthly,
+    delta: catalogMonthly !== null
       ? monthlySpend - catalogMonthly
       : null,
   };
 }
 
-/**
- * Build the cheapest-equivalent config for a given use-case and team size.
- * Returns an alternative plan suggestion if savings exist.
- */
+
 function findCheaperAlternative(tool, currentPlan, seats) {
   const toolData = pricingData[tool];
   if (!toolData) return null;
@@ -46,7 +37,7 @@ function findCheaperAlternative(tool, currentPlan, seats) {
 
   const currentTotal = current.pricePerSeat * seats;
 
-  // Find plans that are cheaper per total cost and not free (free = different tier)
+
   const cheaper = toolData.plans
     .filter(
       (p) =>
@@ -55,7 +46,7 @@ function findCheaperAlternative(tool, currentPlan, seats) {
         p.pricePerSeat < current.pricePerSeat &&
         p.name.toLowerCase() !== currentPlan.toLowerCase()
     )
-    .sort((a, b) => b.pricePerSeat - a.pricePerSeat); // closest cheaper option first
+    .sort((a, b) => b.pricePerSeat - a.pricePerSeat);
 
   if (!cheaper.length) return null;
 
@@ -71,9 +62,7 @@ function findCheaperAlternative(tool, currentPlan, seats) {
   };
 }
 
-/**
- * Check for annual billing savings (if tool offers a discount).
- */
+
 function annualBillingHint(tool, plan, seats, monthlySpend) {
   const toolData = pricingData[tool];
   if (!toolData?.annualDiscount) return null;
@@ -85,9 +74,7 @@ function annualBillingHint(tool, plan, seats, monthlySpend) {
   };
 }
 
-/**
- * Check for seat count efficiency (are they over-seated?).
- */
+
 function seatEfficiencyHint(tool, plan, seats, teamSize) {
   if (!teamSize || seats <= teamSize) return null;
   const toolData = pricingData[tool];
@@ -107,15 +94,11 @@ function seatEfficiencyHint(tool, plan, seats, teamSize) {
 
 const pct = (n) => `${Math.round(n * 100)}%`;
 
-/**
- * Main audit function.
- * @param {AuditInput} input
- * @returns {AuditResult}
- */
+
 export function runAudit(input) {
   const { tools, teamSize, primaryUseCase, companyName } = input;
 
-  // --- Per-tool cost breakdown ---
+
   const breakdown = tools.map(calcToolCost);
 
   const totalMonthlySpend = tools.reduce((s, t) => s + t.monthlySpend, 0);
@@ -124,13 +107,13 @@ export function runAudit(input) {
     0
   );
 
-  // --- Recommendations ---
+
   const recommendations = [];
 
   for (const entry of tools) {
     const { tool, plan, seats, monthlySpend } = entry;
 
-    // 1. Cheaper plan alternative
+
     const alt = findCheaperAlternative(tool, plan, seats);
     if (alt && alt.monthlySavings > 0) {
       recommendations.push({
@@ -143,16 +126,16 @@ export function runAudit(input) {
       });
     }
 
-    // 2. Annual billing hint
+
     const annual = annualBillingHint(tool, plan, seats, monthlySpend);
     if (annual) recommendations.push({ tool, displayName: pricingData[tool]?.displayName ?? tool, ...annual });
 
-    // 3. Seat efficiency
+
     const seatHint = seatEfficiencyHint(tool, plan, seats, teamSize);
     if (seatHint) recommendations.push({ tool, displayName: pricingData[tool]?.displayName ?? tool, ...seatHint });
   }
 
-  // 4. Overlap detection — flag duplicate-purpose tools
+
   const codingTools = tools.filter(
     (t) => pricingData[t.tool]?.category === "coding"
   );
@@ -183,7 +166,7 @@ export function runAudit(input) {
     });
   }
 
-  // Sort by highest savings first
+
   recommendations.sort(
     (a, b) => (b.annualSavings ?? 0) - (a.annualSavings ?? 0)
   );
