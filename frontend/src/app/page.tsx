@@ -125,9 +125,9 @@ export default function AISpendAudit() {
               Intelligent automation syncs with the tools you love to streamline tasks, boost output, and save time.
             </p>
 
-            <button className="animate-fade-in-up" style={{ animationDelay: "0.5s", background: "#22c55e", color: "white", padding: "14px 36px", borderRadius: 50, fontSize: 15, fontWeight: 600, border: "none", cursor: "pointer", marginBottom: 40, boxShadow: "0 4px 24px rgba(34,197,94,0.4)" }}>
-              Begin Free Trial
-            </button>
+            <Link href="/audit" className="animate-fade-in-up" style={{ animationDelay: "0.5s", background: "#22c55e", color: "white", padding: "14px 36px", borderRadius: 50, fontSize: 15, fontWeight: 600, border: "none", cursor: "pointer", marginBottom: 40, boxShadow: "0 4px 24px rgba(34,197,94,0.4)", textDecoration: "none", display: "inline-block" }}>
+              Use for Free →
+            </Link>
 
             {/* Tab Bar */}
             <div className="animate-fade-in-up" style={{ animationDelay: "0.6s", marginBottom: 32, background: "rgba(255,255,255,0.07)", borderRadius: 10, padding: 4, border: "1px solid rgba(255,255,255,0.08)", display: "inline-flex" }}>
