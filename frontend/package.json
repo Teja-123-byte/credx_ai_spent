@@ -8,7 +8,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@supabase/supabase-js": "^2.0.0",
     "@tailwindcss/postcss": "^4.3.0",
     "axios": "^1.16.1",
     "lucide-react": "^0.268.0",
