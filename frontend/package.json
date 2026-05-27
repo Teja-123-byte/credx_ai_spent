@@ -5,7 +5,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "tsc --noEmit --incremental false"
   },
   "dependencies": {
     "@tailwindcss/postcss": "^4.3.0",

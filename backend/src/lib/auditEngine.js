@@ -3,7 +3,7 @@ import { pricingData } from "./pricingData.js";
 export function calcToolCost(entry) {
   const { tool, plan, seats, monthlySpend } = entry;
   const toolData = pricingData[tool];
-  if (!toolData) return { ...entry, catalogPrice: null, delta: null };
+  if (!toolData) return { ...entry, catalogMonthly: null, delta: null };
 
   const planInfo = toolData.plans.find(
     (p) => p.name.toLowerCase() === plan.toLowerCase()
@@ -66,11 +66,15 @@ function findCheaperAlternative(tool, currentPlan, seats) {
 function annualBillingHint(tool, plan, seats, monthlySpend) {
   const toolData = pricingData[tool];
   if (!toolData?.annualDiscount) return null;
-  const saving = monthlySpend * toolData.annualDiscount;
+  const monthlySavings =
+    Math.round(monthlySpend * toolData.annualDiscount * 100) / 100;
+  if (monthlySavings <= 0) return null;
+  const annualSavings = Math.round(monthlySavings * 12 * 100) / 100;
   return {
     type: "annual_billing",
-    message: `Switching to annual billing on ${toolData.displayName} saves ~${pct(toolData.annualDiscount)} (~$${Math.round(saving * 12)}/yr).`,
-    annualSavings: Math.round(saving * 12),
+    message: `Switching to annual billing on ${toolData.displayName} saves ~${pct(toolData.annualDiscount)} (~$${Math.round(annualSavings)}/yr).`,
+    monthlySavings,
+    annualSavings,
   };
 }
 
