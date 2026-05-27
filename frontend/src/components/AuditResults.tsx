@@ -411,7 +411,6 @@ export default function AuditResults({ result, onReset, mode = 'private' }: Prop
             </h1>
           </div>
           <div className="self-start rounded-full border border-white/10 bg-white/5 px-3.5 py-2.5 text-slate-300 text-xs leading-relaxed">
-            <div>{teamSize} team member{teamSize === 1 ? '' : 's'}</div>
             <div className="capitalize">{primaryUseCase} workflow</div>
             {createdLabel && <div>{createdLabel}</div>}
           </div>

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Plus, ArrowRight, Users, Briefcase } from 'lucide-react';
+import { Plus, ArrowRight, Briefcase } from 'lucide-react';
 import { ToolName, ToolEntry, AuditInput } from '../../lib/types';
 import { pricingData } from '../../lib/pricingData';
 import ToolInput from './ToolInput';
@@ -33,20 +33,17 @@ export default function AuditForm({ onSubmit }: Props) {
       return saved ? JSON.parse(saved) : [makeEntry('cursor')];
     } catch { return [makeEntry('cursor')]; }
   });
-  const [teamSize, setTeamSize] = useState<number>(() => {
-    if (typeof window === 'undefined') return 5;
-    return Number(localStorage.getItem('spendlens_teamsize') || '5');
-  });
   const [useCase, setUseCase] = useState<AuditInput['primaryUseCase']>(() => {
     if (typeof window === 'undefined') return 'mixed';
     return (localStorage.getItem('spendlens_usecase') as AuditInput['primaryUseCase']) || 'mixed';
   });
 
+  const DEFAULT_TEAM_SIZE = 5;
+
   useEffect(() => {
     localStorage.setItem('spendlens_tools', JSON.stringify(tools));
-    localStorage.setItem('spendlens_teamsize', String(teamSize));
     localStorage.setItem('spendlens_usecase', useCase);
-  }, [tools, teamSize, useCase]);
+  }, [tools, useCase]);
 
   const addTool = () => {
     const used = new Set(tools.map(t => t.tool));
@@ -66,7 +63,7 @@ export default function AuditForm({ onSubmit }: Props) {
 
   const handleSubmit = () => {
     if (!canSubmit) return;
-    onSubmit({ tools, teamSize, primaryUseCase: useCase });
+    onSubmit({ tools, teamSize: DEFAULT_TEAM_SIZE, primaryUseCase: useCase });
   };
 
   return (
@@ -85,12 +82,12 @@ export default function AuditForm({ onSubmit }: Props) {
       </div>
 
       {/* Context Row */}
-      <div className="grid grid-cols-2 gap-5 mb-8 bg-white/4 border border-slate-400/18 rounded-3xl p-[26px]">
+      <div className="grid grid-cols-1 gap-5 mb-8 bg-white/4 border border-slate-400/18 rounded-3xl p-[26px]">
         <div className="flex flex-col gap-3 w-full">
           <label className="flex items-center gap-1.5 text-[11px] font-bold text-slate-300 uppercase tracking-[0.6px] mb-2">
             <Briefcase size={12} /> Primary Use Case
           </label>
-          <div className="flex gap-2.5 flex-row w-full mt-0.5">
+          <div className="flex flex-wrap gap-2.5 w-full mt-0.5">
             {USE_CASES.map(u => (
               <button
                 key={u.value}

@@ -18,7 +18,7 @@ const tabs = [
   { id: "deploy", label: "Deploy", icon: Rocket },
 ];
 
-export default function AISpendAudit() {
+export default function SpendLensPage() {
   const [activeTab, setActiveTab] = useState("analyse");
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -64,7 +64,7 @@ export default function AISpendAudit() {
           <nav className="animate-fade-in-up [animation-delay:0.1s] px-6 py-5 flex items-center justify-between">
             <div className="flex items-center gap-2">
               <Star size={18} fill="white" color="white" />
-              <span className="text-[17px] font-bold tracking-tight">AISpendAudit</span>
+              <span className="text-[17px] font-bold tracking-tight">SpendLens</span>
             </div>
 
             <div className="flex items-center gap-8">
@@ -78,7 +78,7 @@ export default function AISpendAudit() {
 
             <div className="flex items-center">
               <Link href="/audit" className="bg-white text-black px-5 py-2.5 rounded-full text-[13px] font-semibold border-none cursor-pointer">
-                Start Free Audit
+                Start audit
               </Link>
             </div>
           </nav>
@@ -89,7 +89,6 @@ export default function AISpendAudit() {
               <div className="w-6 h-6 border border-white/30 rounded-md flex items-center justify-center">
                 <Star size={12} fill="white" color="white" />
               </div>
-              <span className="text-[13px] font-medium text-white/85">4.9 rating from 18.3K+ users</span>
             </div>
 
             <div className="relative w-full max-w-[900px] mb-7">
@@ -116,19 +115,17 @@ export default function AISpendAudit() {
 
               <div className="animate-fade-in-up [animation-delay:0.3s]">
                 <h1 className="text-[clamp(48px,7vw,80px)] font-normal leading-[1.08] tracking-[-0.03em] mb-0">
-                  <span className="text-white">Work Smarter. Move Faster.</span>
-                  <br />
-                  <span className="gradient-heading">AI Powers You Up.</span>
+                  <span className="text-white">SpendLens</span>
                 </h1>
               </div>
             </div>
 
             <p className="animate-fade-in-up [animation-delay:0.4s] text-lg text-white/55 max-w-[540px] leading-relaxed mb-8">
-              Intelligent automation syncs with the tools you love to streamline tasks, boost output, and save time.
+              Audit your AI tool spend, compare plan costs, and identify overlap in minutes.
             </p>
 
             <Link href="/audit" className="animate-fade-in-up [animation-delay:0.5s] bg-green-500 text-white px-9 py-3.5 rounded-full text-[15px] font-semibold border-none cursor-pointer mb-10 shadow-[0_4px_24px_rgba(34,197,94,0.4)] no-underline inline-block">
-              Use for Free →
+              Start audit
             </Link>
 
             {/* Tab Bar */}

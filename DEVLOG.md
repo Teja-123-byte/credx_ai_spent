@@ -147,3 +147,32 @@ Design and implement the Audit form along with api endpoints.
 - Add persistence for audits (replace in-memory store with a simple DB or file, or connect to Supabase if configured).
 - Add basic tests for backend routes and a smoke-test script for frontend build/start.
 
+## Day 7 - 2026-05-27
+
+**Hours worked:** 5
+
+**What I did:**
+
+- Added real backend audit-engine coverage with the Node built-in test runner in `backend/test/auditEngine.test.js`
+- Replaced the placeholder backend test script with `node --test`
+- Added 7 passing audit-engine tests covering:
+  - catalog pricing and delta calculation
+  - downgrade recommendations
+  - annual billing savings
+  - excess seat detection
+  - coding tool overlap
+  - general AI overlap
+  - missing pricing and zero-spend edge cases
+- Updated `backend/src/lib/auditEngine.js` so annual billing recommendations contribute monthly savings correctly
+- Aligned the unknown-tool breakdown shape to return `catalogMonthly` consistently
+- Switched the frontend lint command to a CI-safe TypeScript check: `tsc --noEmit --incremental false`
+- Added `.github/workflows/ci.yml` to run frontend lint and backend tests on pushes and pull requests to `main`
+- Wrote `TESTS.md` to document every automated test added for the audit engine
+- Updated `ARCHITECTURE.md` to reflect the real backend-driven audit flow, Supabase storage, Groq summary generation, and current system gaps
+- Updated `README.md` so setup, environment variables, API routes, testing, and CI match the actual codebase
+
+**What I learned:**
+
+- Documentation drift happens fast once architecture changes from client-side computation to backend-owned workflows
+- CI reliability depends on using commands that are fully non-interactive from the start
+- Small contract mismatches like `catalogPrice` vs `catalogMonthly` become much easier to catch once the audit engine has direct test coverage
